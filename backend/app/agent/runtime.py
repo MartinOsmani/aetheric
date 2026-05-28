@@ -179,24 +179,42 @@ async def _stream_one_turn(
         thinking=thinking,
         output_config={"effort": "high"},
     ) as stream:
+        # Coalesce per-token deltas into one event per content block, keyed by
+        # block index. Otherwise the cockpit gets 50+ `agent.message` events
+        # per turn (one per token), which is unreadable noise. We emit the
+        # full block text on content_block_stop instead.
+        thinking_buffers: dict[int, list[str]] = {}
+        text_buffers: dict[int, list[str]] = {}
+
         async for event in stream:
             etype = getattr(event, "type", None)
-            if etype != "content_block_delta":
-                continue
-            delta = event.delta
-            dtype = getattr(delta, "type", None)
-            if dtype == "thinking_delta":
-                text = getattr(delta, "thinking", "") or ""
-                if text:
-                    await bus.publish(
-                        Event.make(session_id, "agent.thinking", AgentThinkingData(text=text))
-                    )
-            elif dtype == "text_delta":
-                text = getattr(delta, "text", "") or ""
-                if text:
-                    await bus.publish(
-                        Event.make(session_id, "agent.message", AgentMessageData(text=text))
-                    )
+            idx = int(getattr(event, "index", 0) or 0)
+
+            if etype == "content_block_delta":
+                delta = event.delta
+                dtype = getattr(delta, "type", None)
+                if dtype == "thinking_delta":
+                    t = getattr(delta, "thinking", "") or ""
+                    if t:
+                        thinking_buffers.setdefault(idx, []).append(t)
+                elif dtype == "text_delta":
+                    t = getattr(delta, "text", "") or ""
+                    if t:
+                        text_buffers.setdefault(idx, []).append(t)
+
+            elif etype == "content_block_stop":
+                if idx in thinking_buffers:
+                    text = "".join(thinking_buffers.pop(idx)).strip()
+                    if text:
+                        await bus.publish(
+                            Event.make(session_id, "agent.thinking", AgentThinkingData(text=text))
+                        )
+                if idx in text_buffers:
+                    text = "".join(text_buffers.pop(idx)).strip()
+                    if text:
+                        await bus.publish(
+                            Event.make(session_id, "agent.message", AgentMessageData(text=text))
+                        )
 
         return await stream.get_final_message()
 

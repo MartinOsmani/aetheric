@@ -1,4 +1,4 @@
-import { AlertTriangle, Check, X } from "lucide-react";
+import { AlertTriangle, ArrowRight, Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
@@ -15,12 +15,77 @@ interface ApprovalQueueProps {
   onDecision: (toolUseId: string, decision: "approve" | "deny") => void;
 }
 
-function formatInput(input: Record<string, unknown>): string {
-  try {
-    return JSON.stringify(input, null, 2);
-  } catch {
-    return String(input);
+function formatValue(value: unknown): string {
+  if (value === null || value === undefined) return "—";
+  if (typeof value === "string") return value;
+  if (typeof value === "number") return value.toString();
+  if (typeof value === "boolean") return value ? "true" : "false";
+  return JSON.stringify(value);
+}
+
+/**
+ * Render `propose_budget_shift` with a distinctive "from → to" hero block
+ * so the demo punch-line beat reads instantly. Other tools fall back to a
+ * generic key/value list.
+ */
+function PendingDetail({ name, input }: { name: string; input: Record<string, unknown> }) {
+  if (name === "propose_budget_shift") {
+    const from = formatValue(input.from_channel);
+    const to = formatValue(input.to_channel);
+    const amount = formatValue(input.amount);
+    const reason = formatValue(input.reason);
+    return (
+      <div className="space-y-2.5">
+        <div className="rounded-md border border-red-500/30 bg-background/60 p-2.5">
+          <div className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
+            Spend reallocation
+          </div>
+          <div className="mt-1.5 flex flex-col gap-1 text-[11.5px]">
+            <div className="flex items-center gap-1.5 font-mono text-foreground">
+              <span className="rounded bg-muted/60 px-1.5 py-0.5 text-[10.5px]">{from}</span>
+              <ArrowRight className="size-3 shrink-0 text-muted-foreground" />
+              <span className="rounded bg-emerald-500/15 px-1.5 py-0.5 text-[10.5px] text-emerald-300">
+                {to}
+              </span>
+            </div>
+            <div className="font-mono text-[14px] font-semibold text-foreground tabular-nums">
+              £{amount}<span className="text-[10px] font-normal text-muted-foreground">/day</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
+            Agent's reason
+          </div>
+          <p className="mt-1 text-[11.5px] leading-snug text-foreground/85">{reason}</p>
+        </div>
+      </div>
+    );
   }
+
+  // Generic — render every input field as a key/value row.
+  const entries = Object.entries(input);
+  if (entries.length === 0) {
+    return (
+      <div className="font-mono text-[10.5px] italic text-muted-foreground">
+        (no input arguments)
+      </div>
+    );
+  }
+  return (
+    <dl className="space-y-1.5">
+      {entries.map(([k, v]) => (
+        <div key={k} className="flex flex-col">
+          <dt className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
+            {k}
+          </dt>
+          <dd className="break-words text-[11.5px] leading-snug text-foreground/90">
+            {formatValue(v)}
+          </dd>
+        </div>
+      ))}
+    </dl>
+  );
 }
 
 export function ApprovalQueue({ pending, onDecision }: ApprovalQueueProps) {
@@ -57,12 +122,12 @@ export function ApprovalQueue({ pending, onDecision }: ApprovalQueueProps) {
             pending.map((p) => (
               <div
                 key={p.toolUseId}
-                className="relative overflow-hidden rounded-md border border-red-500/40 bg-red-500/[0.03] p-3 shadow-[0_0_24px_-12px_rgb(239_68_68_/_0.6)] animate-[pulse_2.4s_ease-in-out_infinite]"
+                className="relative overflow-hidden rounded-md border border-red-500/40 bg-red-500/[0.04] p-3 shadow-[0_0_24px_-12px_rgb(239_68_68_/_0.7)] animate-[pulse_2.4s_ease-in-out_infinite]"
               >
                 <div className="absolute inset-y-0 left-0 w-[3px] bg-red-500" />
-                <div className="ml-1">
-                  <div className="mb-1.5 flex items-center justify-between">
-                    <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-red-400">
+                <div className="ml-1.5 flex flex-col gap-2.5">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="font-mono text-[10.5px] font-semibold uppercase tracking-wider text-red-400">
                       High-risk action
                     </span>
                     <Badge
@@ -73,17 +138,17 @@ export function ApprovalQueue({ pending, onDecision }: ApprovalQueueProps) {
                     </Badge>
                   </div>
 
-                  <div className="mb-2 font-mono text-[13px] font-semibold text-foreground">
+                  <div className="font-mono text-[13px] font-semibold text-foreground">
                     {p.toolName}
                   </div>
 
-                  <p className="mb-2 text-[12px] leading-snug text-muted-foreground">
+                  <p className="text-[11px] leading-snug text-muted-foreground">
                     {p.riskReason}
                   </p>
 
-                  <pre className="mb-3 max-h-32 overflow-auto rounded border border-border/60 bg-background/60 p-2 font-mono text-[10.5px] leading-tight text-foreground/80">
-                    {formatInput(p.toolInput)}
-                  </pre>
+                  <div className="rounded border border-border/50 bg-background/40 p-2.5">
+                    <PendingDetail name={p.toolName} input={p.toolInput} />
+                  </div>
 
                   <div className="flex gap-2">
                     <Button
