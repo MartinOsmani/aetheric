@@ -8,6 +8,16 @@ Most teams will ship an agent that does things. We ship one whose every action i
 **risk-scored, audit-logged, and gated by a visible human approval queue** — because
 "AI-native advertising" is only investable if its agents are verifiable.
 
+## The cockpit, mid-demo
+
+![Cockpit — JourneyView with live attribution credit](docs/screenshots/cockpit-journey-attribution.png)
+
+*Real journey `j-00015`, real attribution model output. AI-chat sponsored answer aggregates **55%** of the credit; prompt-aware native shows visible saturation across two exposures. Top-credited touchpoint highlighted in fuchsia. Per-touchpoint confidence intervals on the right; the agent flags the lowest-confidence touchpoint and explicitly will not bet money on it.*
+
+![High-risk action awaiting operator approval](docs/screenshots/cockpit-approval-pending.png)
+
+*The agent proposed shifting £400/day from a saturated channel to the top-credit channel. Because the action mutates real spend, it pauses in the approval queue and the risk badge flips to HIGH. **Nothing fires until you tap.** Every reasoning step + tool call + decision is in the audit log (right rail).*
+
 ## What it does
 
 Aetheric stitches user journeys across AI-surface ad exposures (sponsored AI
@@ -29,6 +39,8 @@ ground-truth credit**:
 calibration error 0.33 — model is honestly somewhat overconfident on tail
 touchpoints; the agent flags low-confidence attributions explicitly instead
 of averaging them away.*
+
+![Calibration reliability diagram](docs/screenshots/calibration-reliability.png)
 
 Run the eval yourself: `make eval`.
 

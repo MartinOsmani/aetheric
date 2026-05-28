@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useEventStream } from "@/lib/socket";
 import { TopBar } from "@/components/cockpit/TopBar";
 import { ApprovalQueue, type PendingApproval } from "@/components/cockpit/ApprovalQueue";
@@ -93,7 +93,19 @@ function deriveState(events: Event[]) {
 function App() {
   const { events, connected, usingMock, sendApproval, sendKill } =
     useEventStream(SESSION_ID);
-  const [playbook] = useState<"media_buying" | "attribution">("media_buying");
+  // Default to attribution (Track 02). The playbook auto-switches if a
+  // playbook.event arrives carrying a different value.
+  const [playbook, setPlaybook] = useState<"media_buying" | "attribution">("attribution");
+  useEffect(() => {
+    for (let i = events.length - 1; i >= 0; i--) {
+      const e = events[i];
+      if (e.type === "playbook.event") {
+        const pb = (e.data as { playbook?: "media_buying" | "attribution" }).playbook;
+        if (pb && pb !== playbook) setPlaybook(pb);
+        break;
+      }
+    }
+  }, [events, playbook]);
 
   const { pending, risk, killed } = useMemo(() => deriveState(events), [events]);
 

@@ -8,16 +8,15 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "smoke": "tsx scripts/smoke.ts"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.40.1",
-    "@modelcontextprotocol/express": "^1.0.0",
-    "@modelcontextprotocol/node": "^1.0.0",
-    "@modelcontextprotocol/server": "^1.0.0",
+    "@anthropic-ai/sdk": "^0.100.0",
+    "@modelcontextprotocol/sdk": "^1.29.0",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
-    "zod": "^4.3.5"
+    "zod": "^3.25.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.3",

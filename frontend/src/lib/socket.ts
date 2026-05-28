@@ -103,24 +103,44 @@ export function useEventStream(sessionId: string): EventStream {
   const sendApproval = useCallback(
     (toolUseId: string, decision: "approve" | "deny") => {
       if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
-        wsRef.current.send(
-          JSON.stringify({ type: "approval", tool_use_id: toolUseId, decision }),
-        );
+        // Backend doesn't accept inbound WS messages — go through REST.
+        // The agent loop is awaiting a future the /approve handler resolves.
+        fetch("http://localhost:8000/approve", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            session_id: sessionId,
+            tool_use_id: toolUseId,
+            decision,
+            note: decision === "deny" ? "Denied by operator." : null,
+          }),
+        }).catch(() => {
+          /* swallow — UI already reflected the click optimistically */
+        });
       } else if (mockRef.current) {
         if (decision === "approve") mockRef.current.approve(toolUseId);
         else mockRef.current.deny(toolUseId);
       }
     },
-    [],
+    [sessionId],
   );
 
-  const sendKill = useCallback((reason: string) => {
-    if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
-      wsRef.current.send(JSON.stringify({ type: "kill", reason }));
-    } else if (mockRef.current) {
-      mockRef.current.kill(reason);
-    }
-  }, []);
+  const sendKill = useCallback(
+    (reason: string) => {
+      if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+        fetch("http://localhost:8000/kill", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ session_id: sessionId, reason }),
+        }).catch(() => {
+          /* swallow */
+        });
+      } else if (mockRef.current) {
+        mockRef.current.kill(reason);
+      }
+    },
+    [sessionId],
+  );
 
   const resetMock = useCallback(() => {
     if (mockRef.current) {
