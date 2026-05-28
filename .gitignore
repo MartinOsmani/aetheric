@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+.uv-cache/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Node
+node_modules/
+dist/
+build/
+.vite/
+*.local
+.DS_Store
+
+# Env / secrets
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Runtime artefacts
+*.log
+backend/data/audit/
+backend/data/cache/
+# Note: backend/data/attribution/ IS committed — journeys + latest eval run
+# are needed for the demo to work on a fresh clone.
+
+# OS
+.DS_Store
+Thumbs.db

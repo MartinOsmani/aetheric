@@ -1,0 +1,28 @@
+{
+  "name": "aetheric-mcp-server",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Aetheric MCP server — scores prompt intent for AI-native publisher ad insertion (Track 02). Built for the Cursor AdTech London Hackathon (Best use of Alpic bonus).",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.40.1",
+    "@modelcontextprotocol/express": "^1.0.0",
+    "@modelcontextprotocol/node": "^1.0.0",
+    "@modelcontextprotocol/server": "^1.0.0",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "zod": "^4.3.5"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^22.15.30",
+    "tsx": "^4.19.4",
+    "typescript": "^5.7.2"
+  }
+}
