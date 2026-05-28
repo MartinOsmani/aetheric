@@ -1,0 +1,755 @@
+{
+  "j-00006": {
+    "journey_id": "j-00006",
+    "converted": true,
+    "touchpoints": [
+      {
+        "index": 0,
+        "channel": "sponsored_autocomplete",
+        "minutes_offset": 90.1,
+        "credit": 0.18,
+        "confidence": 0.68,
+        "low_confidence": false,
+        "reason": "Early sponsored autocomplete on a comparison query captures genuine research intent and shapes the evaluation frame."
+      },
+      {
+        "index": 1,
+        "channel": "prompt_aware_native",
+        "minutes_offset": 118.0,
+        "credit": 0.15,
+        "confidence": 0.65,
+        "low_confidence": false,
+        "reason": "Prompt-aware native ad inserted at a relevant productivity moment reinforces brand consideration mid-journey."
+      },
+      {
+        "index": 2,
+        "channel": "ai_chat_sponsored_answer",
+        "minutes_offset": 125.6,
+        "credit": 0.35,
+        "confidence": 0.75,
+        "low_confidence": false,
+        "reason": "High-intent sponsored answer precisely matching 'best CRM for solo founders' is the strongest conversion driver in the journey."
+      },
+      {
+        "index": 3,
+        "channel": "ai_chat_sponsored_answer",
+        "minutes_offset": 207.9,
+        "credit": 0.08,
+        "confidence": 0.6,
+        "low_confidence": false,
+        "reason": "Identical repeat of index 2's sponsored answer suffers heavy saturation and adds marginal incremental lift."
+      },
+      {
+        "index": 4,
+        "channel": "podcast_readout",
+        "minutes_offset": 265.1,
+        "credit": 0.14,
+        "confidence": 0.6,
+        "low_confidence": false,
+        "reason": "Podcast readout provides brand reinforcement and likely triggered the immediately following organic search."
+      },
+      {
+        "index": 5,
+        "channel": "organic_search",
+        "minutes_offset": 268.5,
+        "credit": 0.1,
+        "confidence": 0.55,
+        "low_confidence": false,
+        "reason": "Organic search reflects pre-existing intent crystallising into direct navigation but carries no paid spend credit."
+      }
+    ],
+    "top_credit_channel": "ai_chat_sponsored_answer",
+    "is_uncertain": false
+  },
+  "j-00008": {
+    "journey_id": "j-00008",
+    "converted": true,
+    "touchpoints": [
+      {
+        "index": 0,
+        "channel": "organic_search",
+        "minutes_offset": 72.7,
+        "credit": 0.05,
+        "confidence": 0.65,
+        "low_confidence": false,
+        "reason": "Early organic research on Reddit set foundational intent but carries no paid spend and is partially saturated by the repeat visit."
+      },
+      {
+        "index": 1,
+        "channel": "organic_search",
+        "minutes_offset": 178.4,
+        "credit": 0.04,
+        "confidence": 0.65,
+        "low_confidence": false,
+        "reason": "Second identical organic Reddit visit shows continued research but diminishing returns vs. the first visit."
+      },
+      {
+        "index": 2,
+        "channel": "ai_chat_sponsored_answer",
+        "minutes_offset": 247.3,
+        "credit": 0.36,
+        "confidence": 0.68,
+        "low_confidence": false,
+        "reason": "AI chat sponsored answer was the first moment brand X was surfaced at high intent, likely the key inflection point that introduced the product."
+      },
+      {
+        "index": 3,
+        "channel": "sponsored_autocomplete",
+        "minutes_offset": 257.5,
+        "credit": 0.26,
+        "confidence": 0.66,
+        "low_confidence": false,
+        "reason": "Immediately following the chat answer, this sponsored autocomplete for 'brand X review' confirms the prior touchpoint activated intent and reinforced brand consideration."
+      },
+      {
+        "index": 4,
+        "channel": "sponsored_autocomplete",
+        "minutes_offset": 324.4,
+        "credit": 0.19,
+        "confidence": 0.62,
+        "low_confidence": false,
+        "reason": "Comparison-phase autocomplete suggestion deepened evaluation but is somewhat saturated relative to the prior sponsored autocomplete."
+      },
+      {
+        "index": 5,
+        "channel": "podcast_readout",
+        "minutes_offset": 440.2,
+        "credit": 0.1,
+        "confidence": 0.55,
+        "low_confidence": false,
+        "reason": "Late-stage podcast host endorsement likely provided social proof and a final nudge toward conversion, though its causal role is less certain."
+      }
+    ],
+    "top_credit_channel": "ai_chat_sponsored_answer",
+    "is_uncertain": false
+  },
+  "j-00009": {
+    "journey_id": "j-00009",
+    "converted": true,
+    "touchpoints": [
+      {
+        "index": 0,
+        "channel": "podcast_readout",
+        "minutes_offset": 53.7,
+        "credit": 0.12,
+        "confidence": 0.65,
+        "low_confidence": false,
+        "reason": "Podcast host endorsement served as early awareness seed before any intent-driven AI exposures."
+      },
+      {
+        "index": 1,
+        "channel": "ai_chat_sponsored_answer",
+        "minutes_offset": 63.3,
+        "credit": 0.25,
+        "confidence": 0.68,
+        "low_confidence": false,
+        "reason": "First high-intent AI chat sponsored answer on 'best CRM for solo founders' is the strongest intent-capture moment in the journey."
+      },
+      {
+        "index": 2,
+        "channel": "ai_chat_sponsored_answer",
+        "minutes_offset": 91.2,
+        "credit": 0.1,
+        "confidence": 0.6,
+        "low_confidence": false,
+        "reason": "Identical query repeat on same channel begins saturation, providing modest reinforcement credit."
+      },
+      {
+        "index": 3,
+        "channel": "ai_chat_sponsored_answer",
+        "minutes_offset": 101.2,
+        "credit": 0.07,
+        "confidence": 0.57,
+        "low_confidence": false,
+        "reason": "Third consecutive identical-query AI chat exposure is heavily saturated and contributes diminishing incremental value."
+      },
+      {
+        "index": 4,
+        "channel": "ai_chat_sponsored_answer",
+        "minutes_offset": 131.3,
+        "credit": 0.18,
+        "confidence": 0.63,
+        "low_confidence": false,
+        "reason": "Shifted to comparison-framed answer at a later stage, signaling deeper decision-phase research and warranting meaningful credit."
+      },
+      {
+        "index": 5,
+        "channel": "ai_chat_sponsored_answer",
+        "minutes_offset": 243.7,
+        "credit": 0.1,
+        "confidence": 0.57,
+        "low_confidence": false,
+        "reason": "Repeat of the comparison answer deepens brand familiarity but faces saturation versus the first comparison exposure."
+      },
+      {
+        "index": 6,
+        "channel": "sponsored_autocomplete",
+        "minutes_offset": 293.7,
+        "credit": 0.18,
+        "confidence": 0.65,
+        "low_confidence": false,
+        "reason": "Sponsored autocomplete for 'brand X review' indicates near-conversion intent and likely provided the final nudge to convert."
+      }
+    ],
+    "top_credit_channel": "ai_chat_sponsored_answer",
+    "is_uncertain": false
+  },
+  "j-00014": {
+    "journey_id": "j-00014",
+    "converted": true,
+    "touchpoints": [
+      {
+        "index": 0,
+        "channel": "prompt_aware_native",
+        "minutes_offset": 33.3,
+        "credit": 0.12,
+        "confidence": 0.65,
+        "low_confidence": false,
+        "reason": "First prompt_aware_native exposure seeded initial awareness during a high-intent productivity query."
+      },
+      {
+        "index": 1,
+        "channel": "prompt_aware_native",
+        "minutes_offset": 72.7,
+        "credit": 0.05,
+        "confidence": 0.65,
+        "low_confidence": false,
+        "reason": "Repeated prompt_aware_native on identical content saturates quickly, contributing only marginal reinforcement."
+      },
+      {
+        "index": 2,
+        "channel": "podcast_readout",
+        "minutes_offset": 141.1,
+        "credit": 0.1,
+        "confidence": 0.58,
+        "low_confidence": false,
+        "reason": "Podcast mid-roll on a SaaS founder show provided credible mid-funnel reinforcement outside AI surfaces."
+      },
+      {
+        "index": 3,
+        "channel": "ai_chat_sponsored_answer",
+        "minutes_offset": 174.4,
+        "credit": 0.3,
+        "confidence": 0.72,
+        "low_confidence": false,
+        "reason": "Highly relevant sponsored answer to a specific attribution question directly named the brand at peak decision-intent."
+      },
+      {
+        "index": 4,
+        "channel": "organic_search",
+        "minutes_offset": 220.0,
+        "credit": 0.05,
+        "confidence": 0.6,
+        "low_confidence": false,
+        "reason": "Organic search signals pre-existing intent but carries no paid credit; included as minor intent indicator."
+      },
+      {
+        "index": 5,
+        "channel": "sponsored_autocomplete",
+        "minutes_offset": 257.7,
+        "credit": 0.23,
+        "confidence": 0.67,
+        "low_confidence": false,
+        "reason": "First sponsored autocomplete for 'brand X review' captured high-intent evaluation behavior just before conversion."
+      },
+      {
+        "index": 6,
+        "channel": "sponsored_autocomplete",
+        "minutes_offset": 369.6,
+        "credit": 0.15,
+        "confidence": 0.6,
+        "low_confidence": false,
+        "reason": "Second autocomplete exposure is saturated but its recency and closeness to conversion warrants partial last-touch credit."
+      }
+    ],
+    "top_credit_channel": "ai_chat_sponsored_answer",
+    "is_uncertain": false
+  },
+  "j-00015": {
+    "journey_id": "j-00015",
+    "converted": true,
+    "touchpoints": [
+      {
+        "index": 0,
+        "channel": "sponsored_autocomplete",
+        "minutes_offset": 34.1,
+        "credit": 0.12,
+        "confidence": 0.65,
+        "low_confidence": false,
+        "reason": "Early sponsored autocomplete seeded brand awareness and triggered the research journey."
+      },
+      {
+        "index": 1,
+        "channel": "ai_chat_sponsored_answer",
+        "minutes_offset": 111.0,
+        "credit": 0.28,
+        "confidence": 0.7,
+        "low_confidence": false,
+        "reason": "Highly relevant AI-sponsored answer aligned with the user's explicit B2B attribution query, driving strong mid-funnel intent."
+      },
+      {
+        "index": 2,
+        "channel": "prompt_aware_native",
+        "minutes_offset": 220.1,
+        "credit": 0.12,
+        "confidence": 0.6,
+        "low_confidence": false,
+        "reason": "First prompt-aware native exposure reinforced brand during a relevant productivity context."
+      },
+      {
+        "index": 3,
+        "channel": "prompt_aware_native",
+        "minutes_offset": 254.8,
+        "credit": 0.05,
+        "confidence": 0.55,
+        "low_confidence": false,
+        "reason": "Duplicate prompt-aware native on same topic shows saturation with minimal incremental lift."
+      },
+      {
+        "index": 4,
+        "channel": "ai_chat_sponsored_answer",
+        "minutes_offset": 372.4,
+        "credit": 0.27,
+        "confidence": 0.68,
+        "low_confidence": false,
+        "reason": "Late-funnel AI-sponsored answer placing brand X first for a direct category query ('AI invoicing tools') likely accelerated the purchase decision."
+      },
+      {
+        "index": 5,
+        "channel": "sponsored_autocomplete",
+        "minutes_offset": 424.9,
+        "credit": 0.05,
+        "confidence": 0.5,
+        "low_confidence": false,
+        "reason": "Repeated sponsored autocomplete for same query shows heavy saturation with diminishing returns."
+      },
+      {
+        "index": 6,
+        "channel": "organic_search",
+        "minutes_offset": 508.4,
+        "credit": 0.11,
+        "confidence": 0.55,
+        "low_confidence": false,
+        "reason": "Organic search click just before conversion signals strong closing intent, though no paid spend is credited here it reflects a clear decision trigger."
+      }
+    ],
+    "top_credit_channel": "ai_chat_sponsored_answer",
+    "is_uncertain": false
+  },
+  "j-00016": {
+    "journey_id": "j-00016",
+    "converted": true,
+    "touchpoints": [
+      {
+        "index": 0,
+        "channel": "ai_chat_sponsored_answer",
+        "minutes_offset": 38.4,
+        "credit": 0.25,
+        "confidence": 0.65,
+        "low_confidence": false,
+        "reason": "First exposure establishing brand awareness at a high-intent AI chat moment; shapes subsequent consideration strongly."
+      },
+      {
+        "index": 1,
+        "channel": "ai_chat_sponsored_answer",
+        "minutes_offset": 69.8,
+        "credit": 0.1,
+        "confidence": 0.65,
+        "low_confidence": false,
+        "reason": "Identical content to index 0 on the same channel causes saturation, significantly diminishing incremental credit."
+      },
+      {
+        "index": 2,
+        "channel": "sponsored_autocomplete",
+        "minutes_offset": 175.0,
+        "credit": 0.2,
+        "confidence": 0.65,
+        "low_confidence": false,
+        "reason": "Sponsored autocomplete for 'brand X review' signals the user is actively researching the brand, reflecting reinforced intent and meaningful mid-funnel nudge."
+      },
+      {
+        "index": 3,
+        "channel": "ai_chat_sponsored_answer",
+        "minutes_offset": 196.2,
+        "credit": 0.2,
+        "confidence": 0.65,
+        "low_confidence": false,
+        "reason": "Distinct content angle (AI invoicing tools) broadens perceived brand utility and sustains engagement across a new use case."
+      },
+      {
+        "index": 4,
+        "channel": "ai_chat_sponsored_answer",
+        "minutes_offset": 285.1,
+        "credit": 0.25,
+        "confidence": 0.65,
+        "low_confidence": false,
+        "reason": "Closest touchpoint to conversion with unique attribution-related content, likely the final trigger for a decision-maker evaluating the product seriously."
+      }
+    ],
+    "top_credit_channel": "ai_chat_sponsored_answer",
+    "is_uncertain": false
+  },
+  "j-00036": {
+    "journey_id": "j-00036",
+    "converted": true,
+    "touchpoints": [
+      {
+        "index": 0,
+        "channel": "prompt_aware_native",
+        "minutes_offset": 34.8,
+        "credit": 0.15,
+        "confidence": 0.7,
+        "low_confidence": false,
+        "reason": "First exposure on a high-intent AI surface shaped early awareness during a 'best of 2025' query, giving it meaningful upstream credit."
+      },
+      {
+        "index": 1,
+        "channel": "display_retargeting",
+        "minutes_offset": 151.2,
+        "credit": 0.05,
+        "confidence": 0.7,
+        "low_confidence": false,
+        "reason": "Display retargeting on a news homepage is a weak vanity touchpoint with low causal weight."
+      },
+      {
+        "index": 2,
+        "channel": "prompt_aware_native",
+        "minutes_offset": 232.2,
+        "credit": 0.1,
+        "confidence": 0.65,
+        "low_confidence": false,
+        "reason": "Second prompt_aware_native reinforces brand recall on a productivity query but faces some saturation from the first exposure."
+      },
+      {
+        "index": 3,
+        "channel": "display_retargeting",
+        "minutes_offset": 268.3,
+        "credit": 0.03,
+        "confidence": 0.7,
+        "low_confidence": false,
+        "reason": "Duplicate retargeting carousel on the same news homepage is heavily saturated and contributes minimally."
+      },
+      {
+        "index": 4,
+        "channel": "sponsored_autocomplete",
+        "minutes_offset": 323.9,
+        "credit": 0.17,
+        "confidence": 0.68,
+        "low_confidence": false,
+        "reason": "Sponsored autocomplete on a competitor-comparison query signals active evaluation and marks a key consideration-stage moment."
+      },
+      {
+        "index": 5,
+        "channel": "ai_chat_sponsored_answer",
+        "minutes_offset": 417.1,
+        "credit": 0.25,
+        "confidence": 0.72,
+        "low_confidence": false,
+        "reason": "AI chat sponsored answer for a specific high-intent query ('best CRM for solo founders') featuring brand X is a strong influence at the decision stage."
+      },
+      {
+        "index": 6,
+        "channel": "sponsored_autocomplete",
+        "minutes_offset": 467.8,
+        "credit": 0.25,
+        "confidence": 0.72,
+        "low_confidence": false,
+        "reason": "Last-touch sponsored autocomplete for 'brand X review' reflects peak purchase intent and likely sealed the conversion."
+      }
+    ],
+    "top_credit_channel": "ai_chat_sponsored_answer",
+    "is_uncertain": false
+  },
+  "j-00040": {
+    "journey_id": "j-00040",
+    "converted": true,
+    "touchpoints": [
+      {
+        "index": 0,
+        "channel": "organic_search",
+        "minutes_offset": 59.8,
+        "credit": 0.08,
+        "confidence": 0.65,
+        "low_confidence": false,
+        "reason": "Organic search initiated the journey and signals pre-existing intent but carries no paid spend credit."
+      },
+      {
+        "index": 1,
+        "channel": "sponsored_autocomplete",
+        "minutes_offset": 101.0,
+        "credit": 0.28,
+        "confidence": 0.65,
+        "low_confidence": false,
+        "reason": "Sponsored autocomplete on a comparison query captures high-intent mid-funnel research and is a strong AI-surface signal."
+      },
+      {
+        "index": 2,
+        "channel": "prompt_aware_native",
+        "minutes_offset": 125.3,
+        "credit": 0.3,
+        "confidence": 0.65,
+        "low_confidence": false,
+        "reason": "Prompt-aware native on a 'best of 2025' query aligns tightly with purchase-evaluation intent and likely reinforced consideration."
+      },
+      {
+        "index": 3,
+        "channel": "prompt_aware_native",
+        "minutes_offset": 228.3,
+        "credit": 0.18,
+        "confidence": 0.6,
+        "low_confidence": false,
+        "reason": "Second prompt_aware_native exposure on a specific use-case query adds value but shows some saturation vs the first."
+      },
+      {
+        "index": 4,
+        "channel": "display_retargeting",
+        "minutes_offset": 313.5,
+        "credit": 0.05,
+        "confidence": 0.6,
+        "low_confidence": false,
+        "reason": "Display retargeting is weak signal and likely a vanity touchpoint at this late funnel stage."
+      },
+      {
+        "index": 5,
+        "channel": "podcast_readout",
+        "minutes_offset": 412.3,
+        "credit": 0.11,
+        "confidence": 0.55,
+        "low_confidence": false,
+        "reason": "Podcast host-read near conversion may have provided final trust nudge, though causality is uncertain."
+      }
+    ],
+    "top_credit_channel": "prompt_aware_native",
+    "is_uncertain": false
+  },
+  "j-00042": {
+    "journey_id": "j-00042",
+    "converted": true,
+    "touchpoints": [
+      {
+        "index": 0,
+        "channel": "prompt_aware_native",
+        "minutes_offset": 39.4,
+        "credit": 0.25,
+        "confidence": 0.68,
+        "low_confidence": false,
+        "reason": "First high-intent AI-surface touch on a 'best of 2025' query establishes initial brand awareness and anchors the journey."
+      },
+      {
+        "index": 1,
+        "channel": "sponsored_autocomplete",
+        "minutes_offset": 105.2,
+        "credit": 0.25,
+        "confidence": 0.68,
+        "low_confidence": false,
+        "reason": "Sponsored autocomplete on 'brand X review' signals deepening research intent and reinforces brand consideration at a critical mid-funnel moment."
+      },
+      {
+        "index": 2,
+        "channel": "display_retargeting",
+        "minutes_offset": 141.1,
+        "credit": 0.05,
+        "confidence": 0.68,
+        "low_confidence": false,
+        "reason": "Display retargeting is weak signal and likely a vanity touchpoint with minimal incremental lift."
+      },
+      {
+        "index": 3,
+        "channel": "prompt_aware_native",
+        "minutes_offset": 154.7,
+        "credit": 0.12,
+        "confidence": 0.68,
+        "low_confidence": false,
+        "reason": "Repeat prompt_aware_native on the same query as index 0 provides a reinforcement bump but suffers saturation from the earlier exposure."
+      },
+      {
+        "index": 4,
+        "channel": "ai_chat_sponsored_answer",
+        "minutes_offset": 176.4,
+        "credit": 0.2,
+        "confidence": 0.68,
+        "low_confidence": false,
+        "reason": "New AI-chat channel with a specific attribution query shows high intent and introduces a fresh sponsored context closer to conversion."
+      },
+      {
+        "index": 5,
+        "channel": "ai_chat_sponsored_answer",
+        "minutes_offset": 272.3,
+        "credit": 0.13,
+        "confidence": 0.68,
+        "low_confidence": false,
+        "reason": "Identical ai_chat_sponsored_answer as index 4 captures last-touch proximity to conversion but is discounted for saturation."
+      }
+    ],
+    "top_credit_channel": "prompt_aware_native",
+    "is_uncertain": false
+  },
+  "j-00045": {
+    "journey_id": "j-00045",
+    "converted": true,
+    "touchpoints": [
+      {
+        "index": 0,
+        "channel": "sponsored_autocomplete",
+        "minutes_offset": 108.7,
+        "credit": 0.2,
+        "confidence": 0.68,
+        "low_confidence": false,
+        "reason": "Early comparative-intent autocomplete sponsorship shapes initial brand consideration at a high-signal moment."
+      },
+      {
+        "index": 1,
+        "channel": "ai_chat_sponsored_answer",
+        "minutes_offset": 205.3,
+        "credit": 0.25,
+        "confidence": 0.72,
+        "low_confidence": false,
+        "reason": "Being listed first in an AI-generated invoicing-tools summary is a strong trust anchor during active research."
+      },
+      {
+        "index": 2,
+        "channel": "podcast_readout",
+        "minutes_offset": 287.3,
+        "credit": 0.15,
+        "confidence": 0.6,
+        "low_confidence": false,
+        "reason": "Host endorsement adds credibility and emotional reinforcement after initial AI-surface exposures."
+      },
+      {
+        "index": 3,
+        "channel": "display_retargeting",
+        "minutes_offset": 305.4,
+        "credit": 0.05,
+        "confidence": 0.65,
+        "low_confidence": false,
+        "reason": "Display retargeting is a weak vanity touchpoint with minimal causal lift at this stage."
+      },
+      {
+        "index": 4,
+        "channel": "podcast_readout",
+        "minutes_offset": 343.9,
+        "credit": 0.08,
+        "confidence": 0.58,
+        "low_confidence": false,
+        "reason": "Second podcast readout delivers diminishing returns due to saturation on the same channel."
+      },
+      {
+        "index": 5,
+        "channel": "prompt_aware_native",
+        "minutes_offset": 361.4,
+        "credit": 0.17,
+        "confidence": 0.66,
+        "low_confidence": false,
+        "reason": "Prompt-aware native on a contract-management query meets the user at very high purchase intent close to conversion."
+      },
+      {
+        "index": 6,
+        "channel": "prompt_aware_native",
+        "minutes_offset": 387.1,
+        "credit": 0.1,
+        "confidence": 0.6,
+        "low_confidence": false,
+        "reason": "Second prompt_aware_native is near-conversion but suffers saturation from the immediately preceding same-channel exposure."
+      }
+    ],
+    "top_credit_channel": "ai_chat_sponsored_answer",
+    "is_uncertain": false
+  },
+  "j-00046": {
+    "journey_id": "j-00046",
+    "converted": true,
+    "touchpoints": [
+      {
+        "index": 0,
+        "channel": "prompt_aware_native",
+        "minutes_offset": 99.3,
+        "credit": 0.35,
+        "confidence": 0.7,
+        "low_confidence": false,
+        "reason": "First prompt_aware_native exposure on contract management seeded initial intent and shaped brand awareness early in the journey."
+      },
+      {
+        "index": 1,
+        "channel": "prompt_aware_native",
+        "minutes_offset": 204.0,
+        "credit": 0.2,
+        "confidence": 0.65,
+        "low_confidence": false,
+        "reason": "Second prompt_aware_native exposure reinforced awareness but shows saturation effect on the same channel."
+      },
+      {
+        "index": 2,
+        "channel": "ai_chat_sponsored_answer",
+        "minutes_offset": 295.0,
+        "credit": 0.45,
+        "confidence": 0.72,
+        "low_confidence": false,
+        "reason": "AI chat sponsored answer at high-intent moment (invoicing tools query) with brand listed first likely drove final conversion decision."
+      }
+    ],
+    "top_credit_channel": "ai_chat_sponsored_answer",
+    "is_uncertain": false
+  },
+  "j-00047": {
+    "journey_id": "j-00047",
+    "converted": true,
+    "touchpoints": [
+      {
+        "index": 0,
+        "channel": "prompt_aware_native",
+        "minutes_offset": 95.3,
+        "credit": 0.15,
+        "confidence": 0.65,
+        "low_confidence": false,
+        "reason": "Early prompt_aware_native at high-intent productivity moment provided initial brand awareness and shaped the consideration funnel."
+      },
+      {
+        "index": 1,
+        "channel": "ai_chat_sponsored_answer",
+        "minutes_offset": 140.8,
+        "credit": 0.2,
+        "confidence": 0.68,
+        "low_confidence": false,
+        "reason": "Sponsored answer during an active attribution query is a strong intent-aligned touchpoint that introduced brand X in a directly relevant context."
+      },
+      {
+        "index": 2,
+        "channel": "display_retargeting",
+        "minutes_offset": 253.7,
+        "credit": 0.05,
+        "confidence": 0.72,
+        "low_confidence": false,
+        "reason": "Display retargeting is a weak vanity touchpoint; it likely reinforced recall but had minimal causal lift in a high-intent B2B journey."
+      },
+      {
+        "index": 3,
+        "channel": "sponsored_autocomplete",
+        "minutes_offset": 328.9,
+        "credit": 0.15,
+        "confidence": 0.63,
+        "low_confidence": false,
+        "reason": "Sponsored autocomplete for a comparison query directly triggered high-intent competitive evaluation behavior, bridging consideration to decision."
+      },
+      {
+        "index": 4,
+        "channel": "ai_chat_sponsored_answer",
+        "minutes_offset": 338.3,
+        "credit": 0.35,
+        "confidence": 0.7,
+        "low_confidence": false,
+        "reason": "Brand X surfaced as the recommended option in a direct comparison answer at peak decision intent, making this the most likely proximate conversion driver."
+      },
+      {
+        "index": 5,
+        "channel": "prompt_aware_native",
+        "minutes_offset": 388.5,
+        "credit": 0.1,
+        "confidence": 0.55,
+        "low_confidence": false,
+        "reason": "Late-stage repeat of the same prompt_aware_native channel suffers saturation but may have provided a final nudge just before conversion."
+      }
+    ],
+    "top_credit_channel": "ai_chat_sponsored_answer",
+    "is_uncertain": false
+  }
+}

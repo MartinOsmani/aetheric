@@ -36,3 +36,7 @@ backend/data/cache/
 # OS
 .DS_Store
 Thumbs.db
+
+# Editor / tooling junk
+.Rhistory
+*.Rhistory

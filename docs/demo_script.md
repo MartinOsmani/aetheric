@@ -1,147 +1,157 @@
-# Aetheric — Live Demo Script (Top-5 Round)
+# TrueTouch — Demo Script (recorded video)
 
 **Track 02: Sell-Side & Measurement** — Cursor × Thrad London 2026.
 
-Total time: **2 minutes**. Practice with a stopwatch; the approval-moment beat
-(see 1:15–1:45) is the punchline and needs the deliberate pause.
+Format: **recorded 2–3 minute screen capture** → upload to YouTube → paste the
+link in the submission. Retakes are free, so drive it **live** (real agent, real
+LLM attribution). Pace it to land the **"last-touch is fooling you"** beat — that
+is the centrepiece.
 
 ---
 
-## Setup
+## Setup (before you hit record)
 
-1. Backend running: `make backend` (terminal 1)
-2. Frontend running: `make frontend` (terminal 2)
-3. Cockpit open at `http://localhost:5173` — switch to **Playbook** tab pre-emptively
-4. Eval already run: `make eval` — so `get_eval_summary` returns a fresh number
-5. Audit log cleared: `rm backend/data/audit/session-*.jsonl` for a clean run
+1. Backend running: `make backend` (terminal 1).
+2. Frontend running: `make frontend` (terminal 2).
+3. Eval already cached (it is): `get_eval_summary` returns 6.0× / 75% / MAE 0.054.
+4. Run the launcher: `bash scripts/demo.sh` (terminal 3). It will:
+   - print a **fresh-session URL** like `http://localhost:5173/?session=demo-HHMMSS`
+     — open it; the cockpit starts **empty** (no replayed history),
+   - wait for you to start recording, then launch the live agent on ENTER.
+5. Optional: full-screen the browser, hide the cursor when not clicking.
 
-Prompt to type into the cockpit (or hit "Run demo"):
-
-> "Show me what you can do — run the full demo flow."
+> The fresh session is what keeps the cockpit clean. Do **not** record on the
+> shared `demo-session` — it replays every past run and looks cluttered.
 
 ---
 
-## Beat 1 — Hook (0:00 – 0:15)
+## Beat 0 — Open on the empty cockpit (0:00 – 0:10)
+
+Start recording with the empty cockpit on screen (HeroBar says "awaiting
+held-out accuracy…", the book and reveal are empty). Then press ENTER in the
+launcher to start the agent.
 
 > "AI-native advertising is shipping faster than the infrastructure to **trust**
-> it. We built **Aetheric** — a Track 02 sell-side agent that stitches
-> attribution from chat to conversion, scores per-touchpoint credit with
-> **calibrated** confidence, and gates every spend mutation through a visible
-> approval queue."
-
-While saying this, hit Run. The cockpit lights up with `session.started` and
-the agent's first thinking deltas appear in the right rail.
+> it. This is TrueTouch — a sell-side attribution agent for AI publishers."
 
 ---
 
-## Beat 2 — The killer number (0:15 – 0:45)
+## Beat 1 — The killer number (0:10 – 0:35)
 
-Agent calls `get_eval_summary`. Read the number aloud from the cockpit:
+The agent calls `get_eval_summary`; the **HeroBar** flips to the big number.
 
-> "Held-out accuracy on 100 journeys: credit MAE **0.055 vs 0.315** for
-> last-touch. That's **5.7× better** at the per-touchpoint level, and we
-> get the top-credited touchpoint right **63%** of the time — last-touch
-> gets it right **0%** of the time. Why? Because last-touch always picks
-> the final click, which in AI-surface journeys is almost never the
-> channel that actually moved intent."
+> "First, can we even trust the attribution? On 50 held-out journeys with
+> **known ground truth**, our credit error is **0.054 versus 0.324** for
+> last-touch — **6× more accurate** — and we pick the true top touchpoint
+> **75%** of the time versus **0%** for last-touch. ECE 0.31: we're honest that
+> we're a little overconfident on the tail."
 
-(Read the **actual** numbers from the cockpit. If the eval has been re-run,
-the agent will surface the fresh ones via `get_eval_summary`.)
-
----
-
-## Beat 3 — Walk one journey (0:45 – 1:15)
-
-Agent calls `list_journeys` → `load_journey` → `attribute_journey`. The
-JourneyView panel renders the touchpoint timeline live.
-
-Narrate over the live updates:
-
-> "Here's one journey — UK B2B SaaS buyer, 7 touchpoints, converted at £212.
-> Watch the model assign credit. **ai_chat_sponsored_answer** picks up 55% of
-> the credit at two distinct exposures; **prompt_aware_native** shows clear
-> saturation, dropping from 0.10 to 0.05 on the second exposure. The
-> organic_search tail has the lowest confidence — we flag it and we do **not**
-> bet money on its exact share."
-
-Point at the top-credit highlighted card and the confidence column on the
-right.
+Point at the three metric chips. (Ground truth is the whole trick — say so in
+Beat 4 if asked, or in the close.)
 
 ---
 
-## Beat 4 — The approval moment (1:15 – 1:45) — *the punchline*
+## Beat 2 — "Last-touch is fooling you" (0:35 – 1:05) — *the centrepiece*
 
-Agent calls `propose_budget_shift`. The cockpit immediately:
-- Risk badge flashes to **HIGH**
-- A pulsing red card appears in the **Approval Queue** (left rail)
-- A `oversight.approval_required` row appears in the **Audit Log** (right rail)
-- The agent thinking trace pauses with "awaiting operator approval…"
+The **Reveal panel** (left) fills in as `eval_summary` lands; the **Conversions
+attribution book** (right) populates from `list_journeys`.
 
-**Deliberate pause. Let the room see the cockpit waiting.**
+> "Here's why that gap matters. This is what last-touch credits, in red, versus
+> what actually earned the conversions, in blue. Last-touch **over-credits
+> display retargeting by 14 points** and **organic search by 10** — the last
+> clicks — while **under-crediting the AI chat sponsored answers** that actually
+> moved intent. Across this book that's about **£170 of credit pointed at the
+> wrong channels.** That's real budget following the wrong signal."
 
-> "Every action that moves real money pauses here. The operator sees the
-> agent's reasoning, the credit gap that justifies it, and the exact amount
-> proposed. **Nothing fires until I tap.**"
-
-Tap **Approve**. The card resolves green, the action executes, the
-`budget_shifted` playbook event hits the audit log.
-
-> "Action logged, complete reasoning trace preserved. If this had been the
-> wrong call, every byte is auditable after the fact."
+Glance at the book: "And here's the whole conversion book — every customer,
+what last-touch claims, and what TrueTouch says."
 
 ---
 
-## Beat 5 — Close (1:45 – 2:00)
+## Beat 3 — Drill into one customer (1:05 – 1:35)
 
-> "Verifiable attribution for AI-native publishers. Thrad makes the channel;
-> we make the channel **measurable** — and **investable**. Solo build, four
-> hours, every action audit-logged."
+Wait until the agent has **attributed** a journey (its "TrueTouch says" cell
+fills in), then **click that row**. The drawer slides in.
 
-Hold the cockpit on screen for two beats. Done.
+> "Take one customer. Last-touch hands **100%** to the final click. But look at
+> the real journey — the AI chat sponsored answer here is the top-credit
+> touchpoint at high confidence, while the channel last-touch rewarded earned a
+> fraction of that. Every touchpoint shows credit **and** how sure we are —
+> '78% sure' — and we flag the low-confidence ones instead of pretending."
+
+Point at the fuchsia **top-credit** highlight and a "low conf" flag. Close the
+drawer.
 
 ---
 
-## Backup plays
+## Beat 4 — The approval moment (1:35 – 2:05) — *the trust punchline*
 
-If anything goes wrong on stage:
+The agent calls `propose_budget_shift`. The **approval modal blocks the screen**;
+the HeroBar RISK badge flips to **HIGH**.
 
-- **Live LLM latency** — wait it out; the cockpit's audit log + thinking
-  stream make even slow turns watchable. Worst case, narrate: "the model is
-  reasoning through the journey now."
-- **Tavily fails** — irrelevant to Track 02 flow; we don't call it during this demo.
-- **Backend crashes** — fall back to the frontend's built-in mock event
-  generator, which exercises the same UX without any backend. Open Chrome
-  console and watch the mock fire.
-- **WebSocket drops** — refresh the page; the `/audit/{session_id}` REST
-  endpoint replays history on reconnect.
+**Deliberate pause. Let the modal sit.**
+
+> "So the agent proposes moving budget from the over-credited channel to where
+> attribution says conversions actually happen. But this moves **real money** —
+> so it stops. The operator sees the from-channel, the to-channel, the amount,
+> and the agent's reasoning. **Nothing moves until I approve.**"
+
+Click **Approve**. The modal dismisses; the action executes.
+
+> "Approved, executed, and logged."
+
+Click the footer **Audit** chip.
+
+> "Every step — every tool call, the risk score, the approval — is in an
+> append-only audit trail. The verification is the product."
+
+---
+
+## Beat 5 — Close (2:05 – 2:25)
+
+> "Verifiable, calibrated attribution for AI-native publishers — and every pound
+> gated by a human. Thrad makes the channel; TrueTouch makes it **measurable and
+> investable.** Solo build."
+
+Hold on the cockpit for a beat. Stop recording.
+
+---
+
+## Recording tips
+
+- **Pacing:** the live attribution takes ~10–15s. Narrate Beat 2 (the reveal)
+  over it — by the time you finish, a journey is attributed and ready to click.
+- **If a take drifts** (agent attributes a different journey, picks a different
+  £ amount): fine — the script is channel-agnostic. Just click whichever row
+  shows an "TrueTouch says" verdict.
+- **Clean restart:** re-run `bash scripts/demo.sh` for a brand-new empty session.
+- **Backend blip mid-take:** the cockpit auto-falls back to the scripted mock
+  (same flow). Either keep rolling or restart the backend and re-run the launcher.
+- **Don't** record on `demo-session` — stale history will clutter the view.
 
 ---
 
 ## Anti-narratives (what NOT to say)
 
-- Don't say "I built this in 4 hours" until the close. Sets the wrong frame.
-- Don't apologise for the synthetic dataset — pre-empt: "ground truth is the
-  point. Real industry attribution has no ground truth, which is why nobody
-  has a defensible accuracy number. We do because we generated the data."
-- Don't over-explain the architecture mid-demo. The cockpit IS the architecture.
-- Don't oversell `propose_budget_shift` as autonomous — the whole point is
-  that it's NOT. Sell the gate.
+- Don't apologise for the synthetic dataset — pre-empt it: "ground truth is the
+  point. Real attribution has no ground truth, which is why nobody has a
+  defensible accuracy number. We do, because we generated the data."
+- Don't oversell `propose_budget_shift` as autonomous — the whole point is that
+  it is **not**. Sell the gate.
+- Don't over-explain architecture. The console IS the architecture.
 
 ---
 
-## Judges to acknowledge by lens (1:1 after stage)
+## Judges to acknowledge by lens (1:1 after the event)
 
-- **Giorgio (Thrad GTM)** — "This is the measurement layer your Diageo CCO
-  hire is trying to build. Want to talk integration?"
-- **Rohit (Overmind, ex-PyTorch Lightning)** — "Calibration's at ECE 0.30
-  — model is somewhat overconfident on tail touchpoints. Open question I'd
-  love your read on."
+- **Giorgio (Thrad GTM)** — "This is the measurement layer your Diageo CCO hire
+  is trying to build. Want to talk integration?"
+- **Rohit (Overmind, ex-PyTorch Lightning)** — "Calibration's at ECE 0.31 —
+  honestly overconfident on tail touchpoints. I'd love your read."
 - **Will Lewis (Duku AI)** — "Every agent action emits a structured audit
-  record. Verification is the API surface. Should we be using Duku for
-  agentic testing of the approval pipeline?"
-- **David Gelberg (10 Downing St)** — "Trust + regulated lens — would
-  love your take on the approval-queue UX for adoption in sensitive sectors."
-- **John (Strand) / Umberto (Earlybird)** — fundable framing:
-  "Aetheric is the **measurement and trust layer** for AI-native
-  advertising. Thrad and friends are unlocking the channel; we're what
-  makes it investable."
+  record. Verification is the API surface."
+- **David Gelberg (10 Downing St)** — "Trust + regulated lens — your take on the
+  approval-gate UX for sensitive sectors?"
+- **John (Strand) / Umberto (Earlybird)** — "TrueTouch is the measurement and
+  trust layer for AI-native advertising. Thrad unlocks the channel; we make it
+  investable."

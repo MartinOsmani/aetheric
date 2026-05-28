@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import {
   GitBranch,
   MessageSquare,
@@ -9,34 +8,11 @@ import {
   Globe,
   AlertTriangle,
 } from "lucide-react";
-import type { Event, PlaybookEventData } from "@/types/protocol";
+import type { JourneyDetail } from "@/lib/console-types";
 
 interface JourneyViewProps {
-  events: Event[];
+  journey: JourneyDetail | null;
 }
-
-type Touchpoint = {
-  index: number;
-  channel: string;
-  minutes_offset: number;
-  content_hint?: string;
-  channel_description?: string;
-  credit?: number;
-  confidence?: number;
-  low_confidence?: boolean;
-  reason?: string;
-};
-
-type Journey = {
-  journey_id: string;
-  user_segment?: string;
-  converted: boolean;
-  revenue_if_converted?: number;
-  touchpoints: Touchpoint[];
-  top_credit_channel?: string | null;
-  is_uncertain?: boolean;
-  attribution_in_play: boolean; // true once credit_assigned arrived
-};
 
 const CHANNEL_META: Record<
   string,
@@ -74,68 +50,7 @@ const CHANNEL_META: Record<
   },
 };
 
-function isPlaybookEvent(e: Event): e is Event & { data: PlaybookEventData } {
-  return e.type === "playbook.event";
-}
-
-function useCurrentJourney(events: Event[]): Journey | null {
-  return useMemo(() => {
-    // Find latest journey_loaded
-    let loaded: PlaybookEventData | null = null;
-    let credit: PlaybookEventData | null = null;
-    for (const e of events) {
-      if (!isPlaybookEvent(e)) continue;
-      const pl = e.data;
-      if (pl.playbook !== "attribution") continue;
-      if (pl.name === "journey_loaded") {
-        loaded = pl;
-        credit = null; // credits for a previous journey no longer apply
-      } else if (pl.name === "credit_assigned") {
-        credit = pl;
-      }
-    }
-
-    if (credit) {
-      const p = credit.payload as {
-        journey_id: string;
-        converted: boolean;
-        touchpoints: Touchpoint[];
-        top_credit_channel?: string | null;
-        is_uncertain?: boolean;
-      };
-      return {
-        journey_id: p.journey_id,
-        converted: p.converted,
-        touchpoints: p.touchpoints,
-        top_credit_channel: p.top_credit_channel,
-        is_uncertain: p.is_uncertain,
-        attribution_in_play: true,
-      };
-    }
-    if (loaded) {
-      const p = loaded.payload as {
-        journey_id: string;
-        user_segment?: string;
-        converted: boolean;
-        revenue_if_converted?: number;
-        touchpoints: Touchpoint[];
-      };
-      return {
-        journey_id: p.journey_id,
-        user_segment: p.user_segment,
-        converted: p.converted,
-        revenue_if_converted: p.revenue_if_converted,
-        touchpoints: p.touchpoints,
-        attribution_in_play: false,
-      };
-    }
-    return null;
-  }, [events]);
-}
-
-export function JourneyView({ events }: JourneyViewProps) {
-  const journey = useCurrentJourney(events);
-
+export function JourneyView({ journey }: JourneyViewProps) {
   if (!journey) {
     return (
       <div className="flex h-full flex-col gap-3 p-4">
@@ -148,11 +63,10 @@ export function JourneyView({ events }: JourneyViewProps) {
         <div className="flex flex-1 items-center justify-center rounded-md border border-dashed border-border/60 bg-card/20">
           <div className="text-center text-muted-foreground">
             <p className="font-mono text-[11px] uppercase tracking-widest">
-              No journey loaded yet
+              No journey selected
             </p>
             <p className="mt-2 text-[12px]">
-              Ask the agent to <code className="rounded bg-muted px-1.5 py-0.5 font-mono">load_journey</code>{" "}
-              and <code className="rounded bg-muted px-1.5 py-0.5 font-mono">attribute_journey</code>.
+              Pick a conversion from the table to inspect its attribution.
             </p>
           </div>
         </div>
@@ -167,10 +81,8 @@ export function JourneyView({ events }: JourneyViewProps) {
       byChannel[tp.channel] = (byChannel[tp.channel] ?? 0) + tp.credit;
     }
   }
-  const channelTotals = Object.entries(byChannel)
-    .sort(([, a], [, b]) => b - a);
+  const channelTotals = Object.entries(byChannel).sort(([, a], [, b]) => b - a);
 
-  // Find the top-credit touchpoint by credit value
   let maxCredit = 0;
   for (const tp of journey.touchpoints) {
     if ((tp.credit ?? 0) > maxCredit) maxCredit = tp.credit!;
@@ -189,7 +101,9 @@ export function JourneyView({ events }: JourneyViewProps) {
             <p className="mt-0.5 text-[11px] text-muted-foreground">
               {journey.user_segment && (
                 <>
-                  <span className="font-mono">{journey.user_segment}</span>
+                  <span className="font-mono capitalize">
+                    {journey.user_segment.replace(/_/g, " ")}
+                  </span>
                   <span className="mx-2">·</span>
                 </>
               )}
@@ -203,11 +117,15 @@ export function JourneyView({ events }: JourneyViewProps) {
               {journey.converted && journey.revenue_if_converted ? (
                 <>
                   <span className="mx-2">·</span>
-                  <span className="tabular-nums">£{journey.revenue_if_converted.toFixed(0)}</span>
+                  <span className="tabular-nums">
+                    £{journey.revenue_if_converted.toFixed(0)}
+                  </span>
                 </>
               ) : null}
               <span className="mx-2">·</span>
-              <span className="tabular-nums">{journey.touchpoints.length} touchpoints</span>
+              <span className="tabular-nums">
+                {journey.touchpoints.length} touchpoints
+              </span>
             </p>
           </div>
         </div>
@@ -234,8 +152,7 @@ export function JourneyView({ events }: JourneyViewProps) {
               const Icon = meta.icon;
               const credit = tp.credit ?? null;
               const conf = tp.confidence ?? null;
-              const isTop =
-                credit !== null && credit > 0 && credit === maxCredit;
+              const isTop = credit !== null && credit > 0 && credit === maxCredit;
               const confColor =
                 conf === null
                   ? "text-muted-foreground"
@@ -279,7 +196,9 @@ export function JourneyView({ events }: JourneyViewProps) {
                       </span>
                     </div>
                     {tp.content_hint && (
-                      <p className="mt-1 text-[12px] text-foreground/80">{tp.content_hint}</p>
+                      <p className="mt-1 text-[12px] text-foreground/80">
+                        {tp.content_hint}
+                      </p>
                     )}
                     {tp.reason && (
                       <p className="mt-1 text-[11px] italic text-muted-foreground">
@@ -299,9 +218,9 @@ export function JourneyView({ events }: JourneyViewProps) {
                         </span>
                         {conf !== null && (
                           <span
-                            className={`w-12 text-right font-mono text-[10px] tabular-nums ${confColor}`}
+                            className={`w-20 text-right font-mono text-[10px] tabular-nums ${confColor}`}
                           >
-                            ±{((1 - conf) * 100).toFixed(0)}%
+                            {(conf * 100).toFixed(0)}% sure
                           </span>
                         )}
                       </div>
@@ -346,7 +265,7 @@ export function JourneyView({ events }: JourneyViewProps) {
                 );
               })}
             </div>
-            {!journey.attribution_in_play && (
+            {!journey.attributed && (
               <p className="mt-3 text-[10px] italic text-muted-foreground">
                 Awaiting <code className="font-mono">attribute_journey</code>…
               </p>

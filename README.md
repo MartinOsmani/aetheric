@@ -1,4 +1,4 @@
-# Aetheric
+# TrueTouch
 
 **A sell-side attribution agent for AI-native advertising — every action verifiable.**
 
@@ -20,7 +20,7 @@ Most teams will ship an agent that does things. We ship one whose every action i
 
 ## What it does
 
-Aetheric stitches user journeys across AI-surface ad exposures (sponsored AI
+TrueTouch stitches user journeys across AI-surface ad exposures (sponsored AI
 answers, prompt-aware native, autocomplete, podcast, retargeting), scores
 per-touchpoint causal credit with calibrated confidence, surfaces uncertain
 attributions for human review instead of over-claiming, and proposes spend
@@ -29,14 +29,14 @@ reallocations based on what actually drove conversions.
 The headline number, against a 500-journey synthetic dataset with **known
 ground-truth credit**:
 
-| Metric | Aetheric | Last-touch baseline |
+| Metric | TrueTouch | Last-touch baseline |
 |---|---|---|
-| Credit MAE (per touchpoint) | **0.055** | 0.315 |
-| Top-touchpoint match rate | **63%** | 0% |
-| Improvement vs. baseline | — | **5.7× more accurate** |
+| Credit MAE (per touchpoint) | **0.054** | 0.324 |
+| Top-touchpoint match rate | **75%** | 0% |
+| Improvement vs. baseline | — | **6.0× more accurate** |
 
-*100 held-out journeys (27 converters), n=500 total dataset. Expected
-calibration error 0.33 — model is honestly somewhat overconfident on tail
+*50 held-out journeys (16 converters), n=500 total dataset. Expected
+calibration error 0.31 — model is honestly somewhat overconfident on tail
 touchpoints; the agent flags low-confidence attributions explicitly instead
 of averaging them away.*
 
@@ -79,7 +79,7 @@ Then point your browser at `http://localhost:5173` and type
 
 ## Track 02 fit
 
-Aetheric directly addresses the Track 02 brief:
+TrueTouch directly addresses the Track 02 brief:
 
 - *"Scores prompt intent in real time, gates ad eligibility"* → see the Alpic
   MCP server in `mcp-server/` exposing `score_prompt_intent`.

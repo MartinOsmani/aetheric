@@ -31,6 +31,20 @@ log = logging.getLogger(__name__)
 # In-memory cache of loaded datasets per session to keep things snappy.
 _dataset_cache: dict[str, list[journeys.Journey]] = {}
 
+# Pre-computed per-journey attributions for the demo book (see precompute_book).
+_demo_book_cache: dict[str, dict] | None = None
+
+
+def _load_demo_book() -> dict[str, dict]:
+    global _demo_book_cache
+    if _demo_book_cache is None:
+        path = journeys.DATA_DIR_ATTR / "demo_book.json"
+        try:
+            _demo_book_cache = json.loads(path.read_text())
+        except (FileNotFoundError, ValueError):
+            _demo_book_cache = {}
+    return _demo_book_cache
+
 
 def _load_for_session(session_id: str) -> list[journeys.Journey]:
     if session_id not in _dataset_cache:
@@ -65,9 +79,37 @@ async def _list_journeys_handler(ctx: ToolContext, args: dict[str, Any]) -> dict
             "n_touchpoints": len(j.touchpoints),
             "converted": j.converted,
             "revenue": round(j.revenue_if_converted, 2),
+            # Final touchpoint channel = what last-touch attribution would
+            # hand 100% of the credit to. The cockpit contrasts this against
+            # TrueTouch's real per-touchpoint credit.
+            "last_channel": j.touchpoints[-1].channel if j.touchpoints else None,
+            # Full touchpoint sequence so the cockpit can show every customer's
+            # steps on click, even before attribution runs (credit fills in later).
+            "touchpoints": [
+                {
+                    "index": tp.index,
+                    "channel": tp.channel,
+                    "minutes_offset": round(tp.minutes_offset, 1),
+                    "content_hint": tp.content_hint,
+                }
+                for tp in j.touchpoints
+            ],
         }
         for j in candidates[:limit]
     ]
+    # Emit so the cockpit's journeys table populates from the event stream.
+    await _emit(ctx.session_id, "journeys_listed", {"journeys": out})
+
+    # If we have pre-computed attributions for the book, emit them so the
+    # cockpit's "TrueTouch says" column fills in for every row immediately
+    # (real cached model output — no per-call latency). Degrades gracefully
+    # to an empty column if the cache is absent.
+    book = _load_demo_book()
+    for row in out:
+        cached = book.get(row["journey_id"])
+        if cached:
+            await _emit(ctx.session_id, "credit_assigned", cached)
+
     return {"count": len(out), "journeys": out}
 
 
@@ -188,7 +230,7 @@ def attribute_journey_tool() -> Tool:
     return Tool(
         name="attribute_journey",
         description=(
-            "Run the Aetheric LLM-as-judge attribution model on one journey, returning "
+            "Run the TrueTouch LLM-as-judge attribution model on one journey, returning "
             "per-touchpoint causal credit with confidence intervals. Low-confidence "
             "touchpoints are explicitly flagged so the operator knows what NOT to act on."
         ),
@@ -220,7 +262,31 @@ async def _get_eval_summary_handler(ctx: ToolContext, args: dict[str, Any]) -> d
                 "attribution.eval_harness --n 50` first."
             )
         }
-    return json.loads(summary_path.read_text())
+    summary = json.loads(summary_path.read_text())
+
+    # Surface the headline figures to the cockpit hero bar via the event
+    # stream — the tool result alone rides in a truncated output_preview.
+    metrics = summary.get("metrics", {})
+    ours = metrics.get("ours", {})
+    baseline = metrics.get("last_touch_baseline", {})
+    improvement = metrics.get("improvement_vs_baseline", {})
+    await _emit(
+        ctx.session_id,
+        "eval_summary",
+        {
+            "credit_mae": ours.get("credit_mae"),
+            "last_touch_mae": baseline.get("credit_mae"),
+            "ratio_better": improvement.get("credit_mae_ratio_better"),
+            "top_match_rate": ours.get("top_touchpoint_match_rate"),
+            "ece": ours.get("expected_calibration_error"),
+            "n_test": summary.get("n_test"),
+            "n_test_converters": summary.get("n_test_converters"),
+            # Per-channel credit shares (ours vs last-touch) power the cockpit's
+            # "last-touch is fooling you" reveal panel.
+            "per_channel_credit_share": summary.get("per_channel_credit_share"),
+        },
+    )
+    return summary
 
 
 def get_eval_summary_tool() -> Tool:
